@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Axis of graph -->
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="400dip"
+        android:layout_marginTop="232dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <!-- Button to create a line graph -->
+    <Button
+        android:id="@+id/lineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Line Graph"
+        tools:layout_editor_absoluteX="12dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <!-- Button to create a bar chart -->
+    <Button
+        android:id="@+id/barButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Create Bar Chart"
+        app:layout_constraintStart_toStartOf="@+id/lineButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Button to create a bar chart and a line graph on top of one another -->
+    <Button
+        android:id="@+id/mixedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="148dp"
+        android:text="Create Mixed Graph"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <!-- Button to reset graph -->
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="448dp"
+        android:text="Reset"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="12dp" />
+
+</android.support.constraint.ConstraintLayout>
