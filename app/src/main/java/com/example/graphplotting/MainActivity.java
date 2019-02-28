@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
@@ -32,19 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialising graph and its properties
         final GraphView graph = (GraphView) findViewById(R.id.graph);
-        graph.getGridLabelRenderer().setHorizontalAxisTitle("X Axis");
-        graph.getGridLabelRenderer().setVerticalAxisTitle("Y Axis");
-        graph.getViewport().setScrollable(true);
-        graph.getViewport().setScalable(true);
-        String[] xAxis = new String[10];
+        setAxisTitle("X Axis", "Y Axis", graph);
+        setScrollable(true, graph);
+        setZoomable(true, graph);
 
-        // Labelling X-axis
+        // Labelling X and Y axis
+        String[] xAxis = new String[10];
         for (int i = 0; i < 10; i++) {
             xAxis[i] = "School " + (i + 1);
         }
-        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-        staticLabelsFormatter.setHorizontalLabels(xAxis);
-        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        String[] yAxis = {"D", "C", "B", "A", "A*"};
+        setAxisLabels(xAxis, yAxis, graph);
 
         // Listeners for all buttons
         button1.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 barChart(graph);
@@ -63,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
             ;
         });
-
 
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         });
-
     }
-
 
     // Method generating an array of random data points
     private DataPoint[] generateData() {
@@ -99,6 +92,29 @@ public class MainActivity extends AppCompatActivity {
         return values;
     }
 
+    // Method to set the X and Y axis titles
+    public void setAxisTitle(String xAxis, String yAxis, GraphView graph) {
+        graph.getGridLabelRenderer().setHorizontalAxisTitle(xAxis);
+        graph.getGridLabelRenderer().setVerticalAxisTitle(yAxis);
+    }
+
+    // Method to set the X and Y axis labels
+    public void setAxisLabels(String[] xAxis, String[] yAxis, GraphView graph) {
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        staticLabelsFormatter.setHorizontalLabels(xAxis);
+        staticLabelsFormatter.setVerticalLabels(yAxis);
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+    }
+
+    // Method to allow scrolling on the graph
+    public void setScrollable(boolean scrollable, GraphView graph) {
+        graph.getViewport().setScrollable(scrollable);
+    }
+
+    // Method to allow zooming on the graph
+    public void setZoomable(boolean zoomable, GraphView graph) {
+        graph.getViewport().setScalable(zoomable);
+    }
 
     // Method called to create a line graph
     public void lineGraph(GraphView graph) {
