@@ -1,6 +1,7 @@
 package com.example.graphplotting;
 
 import android.graphics.Color;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.PointsGraphSeries;
 
 import java.util.Random;
 
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button1 = findViewById(R.id.lineButton);
         final Button button2 = findViewById(R.id.barButton);
         final Button button3 = findViewById(R.id.mixedButton);
+        final Button button4 = findViewById(R.id.scatterButton);
         final Button resetButton = findViewById(R.id.resetButton);
 
         // Initialising graph and its properties
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
             xAxis[i] = "School " + (i + 1);
         }
         String[] yAxis = {"D", "C", "B", "A", "A*"};
-        setAxisLabels(xAxis, yAxis, graph);
+        //setAxisLabels(xAxis, yAxis, graph);
 
         // Listeners for all buttons
         button1.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mixedGraph(graph);
+                resetButton.setVisibility(View.VISIBLE);
+
+            }
+
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                scatterGraph(graph);
                 resetButton.setVisibility(View.VISIBLE);
 
             }
@@ -96,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
     public void setAxisTitle(String xAxis, String yAxis, GraphView graph) {
         graph.getGridLabelRenderer().setHorizontalAxisTitle(xAxis);
         graph.getGridLabelRenderer().setVerticalAxisTitle(yAxis);
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
     }
 
     // Method to set the X and Y axis labels
@@ -143,6 +156,23 @@ public class MainActivity extends AppCompatActivity {
         generated = true;
     }
 
+    public void scatterGraph(GraphView graph) {
+        if (generated) {
+            graph.removeAllSeries();
+            generated = false;
+        }
+
+        PointsGraphSeries<DataPoint> series = new PointsGraphSeries<>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
+
+        generated = true;
+    }
     // Method called to create a graph with a bar chart and a line graph on top of each other
     public void mixedGraph(GraphView graph) {
         if (generated) {
